@@ -1,0 +1,54 @@
+body {
+  font-family: 'Helvetica', sans;
+  background-color: #fefefe;
+  color: #333;
+  padding: 2rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+h1 {
+  color: #0047cc;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+button:active {
+  transform: scale(0.90);
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+.header {
+  background-image: url('https://www.vecteezy.com/vector-art/17457394-simple-background-with-gradient-shape-green');
+  background-size: cover;
+  height: 200px;
+  text-align: center;
+  padding: 20px;
+  color: white;
+}
+
+.header img {
+  width: 150px;
+  border-radius: 10%;
+  margin-bottom: 0rem;
+}
+.header img {
+  width: 200px; 
+  height: auto; 
+}
