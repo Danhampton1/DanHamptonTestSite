@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>DanTest1</title>
-  <link rel="stylesheet" href="./style.css">
 
-</head>
-<body>
-<!-- partial:index.partial.html -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<button id="darkModeToggle">Toggle Dark Mode</button>
+<script>
+  const toggle = document.getElementById('darkModeToggle');
+  toggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+  });
+</script>
+
+
 <div class="header">
   <img src="https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png" alt="Header Image">
   <h1>Hello, I'm Dan</h1>
@@ -25,8 +26,3 @@
 
 <button id="factBtn">Press me</button>
 <p id="factBox"></p>
-<!-- partial -->
-  <script  src="./script.js"></script>
-
-</body>
-</html>
