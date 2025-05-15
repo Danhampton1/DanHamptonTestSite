@@ -1,28 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dan's Website</title>
+  <style>
+    body {
+      background-color: white;
+      color: black;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<button id="darkModeToggle">Toggle Dark Mode</button>
-<script>
-  const toggle = document.getElementById('darkModeToggle');
-  toggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-  });
-</script>
+    .dark-mode {
+      background-color: #121212;
+      color: #f5f5f5;
+    }
 
+    .header img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 12px;
+    }
 
-<div class="header">
-  <img src="https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png" alt="Header Image">
-  <h1>Hello, I'm Dan</h1>
-</div>
+    button {
+      margin: 20px;
+      padding: 10px 20px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-<h1>Welcome to my site</h1>
-<p>I’m learning how to build websites and this is my first one!</p>
+    button:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
 
-<h2>I started learning this at like 11pm on a Wednesday. </h2>
-<ul>
-  <li>Probably not the smartest idea as i have work tomorrow</li>
-  <li>nevermind.... I can sleep tomorrow</li>
-  <li>press that button, see what it does</li>
-</ul>
+  <button id="darkModeToggle">Toggle Dark Mode</button>
 
-<button id="factBtn">Press me</button>
-<p id="factBox"></p>
+  <div class="header">
+    <img src="https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png" alt="Header Image">
+    <h1>Hello, I'm Dan</h1>
+  </div
