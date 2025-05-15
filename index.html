@@ -1,51 +1,133 @@
-<html>
-<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dan's Website</title>
   <style>
     body {
-      background-color: white;
-      color: black;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-      transition: background-color 0.5s ease, color 0.5s ease;
+      font-family: 'Segoe UI', sans-serif;
+      background: #4C5958;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
     }
 
-    .dark-mode {
-      background-color: #121212;
-      color: #f5f5f5;
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #BFBFBF;
     }
 
-    .header img {
-      width: 100%;
-      max-width: 600px;
-      border-radius: 12px;
+    input, button {
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin: 5px;
+      outline: none;
     }
 
     button {
-      margin: 20px;
-      padding: 10px 20px;
-      background-color: #333;
+      background-color: #10403B;
       color: white;
       border: none;
-      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s ease;
     }
 
     button:hover {
-      background-color: #555;
+      background-color: #45a049;
+    }
+
+    #weatherResult {
+      margin-top: 30px;
+      max-width: 500px;
+      width: 100%;
+      text-align: left;
+      background-color: #f8f8f8;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    #weatherResult img {
+      vertical-align: middle;
     }
   </style>
 </head>
 <body>
+  <h1>🌤️ What's the weather in...</h1>
 
-  <button id="darkModeToggle">Toggle Dark Mode</button>
+  <input type="text" id="cityInput" placeholder="Enter a city name">
+  <button id="getWeatherBtn">Get Forecast</button>
 
-  <div class="header">
-    <img src="https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png" alt="Header Image">
-    <h1>Hello, I'm Dan</h1>
-  </div
+  <div id="weatherResult"></div>
+
+  <script>
+    const apiKey = '6cc13aae41562097598d9df9e93d2719';
+
+    document.getElementById('getWeatherBtn').addEventListener('click', () => {
+      const city = document.getElementById('cityInput').value.trim();
+      const result = document.getElementById('weatherResult');
+      result.innerHTML = '';
+
+      if (!city) {
+        alert('Please enter a city name');
+        return;
+      }
+
+      const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+
+      fetch(url)
+        .then(response => {
+          if (!response.ok) throw new Error('City not found');
+          return response.json();
+        })
+        .then(data => {
+          const cityName = data.city.name;
+          const forecasts = data.list;
+
+          const dailyForecasts = [];
+          const seenDates = new Set();
+
+          for (let i = 0; i < forecasts.length; i++) {
+            const item = forecasts[i];
+            const date = item.dt_txt.split(' ')[0];
+            const time = item.dt_txt.split(' ')[1];
+
+            if (time === '12:00:00' && !seenDates.has(date)) {
+              seenDates.add(date);
+              dailyForecasts.push(item);
+              if (dailyForecasts.length === 3) break;
+            }
+          }
+
+          let forecastHTML = `<h2>3-Day Forecast for ${cityName}</h2>`;
+
+          dailyForecasts.forEach(forecast => {
+            const date = new Date(forecast.dt_txt).toDateString();
+            const icon = forecast.weather[0].icon;
+            const description = forecast.weather[0].description;
+            const temp = forecast.main.temp;
+            const humidity = forecast.main.humidity;
+            const wind = forecast.wind.speed;
+
+            forecastHTML += `
+              <div style="margin-top: 15px; padding: 10px; border-top: 1px solid #ccc;">
+                <strong>${date}</strong><br>
+                <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}" style="width:60px"><br>
+                <em>${description}</em><br>
+                🌡️ Temp: ${temp}°C<br>
+                💧 Humidity: ${humidity}%<br>
+                🌬️ Wind: ${wind} m/s
+              </div>
+            `;
+          });
+
+          result.innerHTML = forecastHTML;
+        })
+        .catch(error => {
+          result.textContent = error.message;
+        });
+    });
+  </script>
+</body>
